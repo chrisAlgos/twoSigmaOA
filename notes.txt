@@ -1,10 +1,21 @@
 Difference between a process and a thread 
 - examples of when both or one would be high or low
+process: active program 
+thread: process own threads, they can be run asyncronously and are usually used to complete a unit of work 
 How process communicates 
 How threads communicate 
 Difference between latency and throughput 
+- latency = time it takes for work to complete
+- throughput = how much work is done in a given period of time 
+What is a generator? 
+generator is a function that is used to abstract data as an iterator 
+- has yield keyword that returns data on-demand 
+- can loop on generators or call .next()
 Random generator 
 New range in the old generator 
+- xrange vs. range 
+-range returns a range object 
+-xrange returns a generator 
 Maximum subarray sum of a circular array 
 Implement LRU cache, LFU cache 
 Buy and sell stocks up to k times 
