@@ -1,27 +1,28 @@
-class Solution:
-    def longestStrChain(self, words: List[str]) -> int:
-        words.sort(reverse = True, key = lambda x: len(x))
-        def helper(a,b):
-            #if len(a) == 1:
-                #return b[0] == a or b[1] == a
-            j = i = 0
-            while i < len(a):
-                if a[i] != b[j]:
-                    if j != i:
-                        return False
-                    j += 1
-                else:
-                    j += 1
-                    i += 1
-            return True
-            
-        dp = [1 for _ in range(len(words))]
-        for i in range(len(words)):
-            for j in range(i + 1, len(words)):
-                if len(words[i]) == len(words[j]):
-                    continue
-                if len(words[i]) - 1 > len(words[j]):
-                    break
-                if helper(words[j], words[i]):
-                    dp[j] = max(dp[i] + 1, dp[j])
-        return max(dp)
+def longestStringChain(strings):
+	
+	strings.sort(key= lambda x: len(x)) 
+	chainLengths = {string:1 for string in strings}
+	sequence = {string:string for string in strings}
+	maxLength, maxString = -float('inf'), None 
+	
+	for s in strings: 
+		for i in range(len(s)): # omit character i 
+			omitString= s[0:i] + s[i+1:]
+			if chainLengths.get(omitString, 0): # if omitString exists in strings 
+				if chainLengths.get(omitString)+1 > chainLengths[s]: 
+					chainLengths[s] = chainLengths.get(omitString)+1
+					sequence[s] = omitString 
+		if maxLength < chainLengths[s]: 
+			maxLength = chainLengths[s]
+			maxString = s 
+			
+	
+	 # get the sequence of strings
+	s, res = maxString, []
+	if s == sequence[s]: 
+		return []
+	while s != sequence[s]:
+		res.append(s)
+		s = sequence[s]
+	res.append(s)
+	return res 
